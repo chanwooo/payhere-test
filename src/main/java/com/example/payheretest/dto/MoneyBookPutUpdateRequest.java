@@ -15,11 +15,12 @@ import javax.validation.constraints.PositiveOrZero;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class MoneyBookUpdateRequest {
+public class MoneyBookPutUpdateRequest {
 
     @PositiveOrZero
+    @NotNull(message = "money는 null일 수 없습니다.")
     private Long money;
 
-    @NotNull
+    @NotNull(message = "memo는 null일 수 없습니다.")
     private String memo;
 }

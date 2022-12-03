@@ -3,6 +3,7 @@ package com.example.payheretest.controller;
 import com.example.payheretest.exception.NoSuchMoneyBookException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -19,7 +20,7 @@ class GlobalControllerExceptionHandler {
         log.error("404, 거래기록을 찾지 못했어요.");
     }
 
-    @ExceptionHandler(UnexpectedTypeException.class)
+    @ExceptionHandler({UnexpectedTypeException.class, MethodArgumentNotValidException.class})
     @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "입력이 잘못되었어요 확인해주세요.")
     public void handleUnexpectedType() {
         log.error("400, 입력이 잘못되었어요 확인해주세요.");

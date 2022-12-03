@@ -3,9 +3,10 @@ package com.example.payheretest.service;
 import com.example.payheretest.domain.MoneyBook;
 import com.example.payheretest.domain.User;
 import com.example.payheretest.dto.MoneyBookCreateRequest;
+import com.example.payheretest.dto.MoneyBookPatchUpdateRequest;
+import com.example.payheretest.dto.MoneyBookPutUpdateRequest;
 import com.example.payheretest.dto.MoneyBookRequest;
 import com.example.payheretest.dto.MoneyBookResponse;
-import com.example.payheretest.dto.MoneyBookUpdateRequest;
 import com.example.payheretest.exception.NoSuchMoneyBookException;
 import com.example.payheretest.repository.MoneyBookRepository;
 import lombok.RequiredArgsConstructor;
@@ -37,20 +38,20 @@ public class MoneyBookServiceImpl implements MoneyBookService {
 
     @Override
     @Transactional
-    public MoneyBookResponse patchUpdate(Long moneyBookId, MoneyBookUpdateRequest moneyBookUpdateRequest) {
+    public MoneyBookResponse patchUpdate(Long moneyBookId, MoneyBookPatchUpdateRequest moneyBookPatchUpdateRequest) {
         MoneyBook moneyBook = moneyBookRepository.findById(moneyBookId)
                 .orElseThrow(NoSuchMoneyBookException::new);
 
-        return moneyBook.patchUpdate(moneyBookUpdateRequest).toResponse();
+        return moneyBook.patchUpdate(moneyBookPatchUpdateRequest).toResponse();
     }
 
     @Override
     @Transactional
-    public MoneyBookResponse putUpdate(Long moneyBookId, MoneyBookUpdateRequest moneyBookUpdateRequest) {
+    public MoneyBookResponse putUpdate(Long moneyBookId, MoneyBookPutUpdateRequest moneyBookPutUpdateRequest) {
         MoneyBook moneyBook = moneyBookRepository.findById(moneyBookId)
                 .orElseThrow(NoSuchMoneyBookException::new);
 
-        return moneyBook.putUpdate(moneyBookUpdateRequest).toResponse();
+        return moneyBook.putUpdate(moneyBookPutUpdateRequest).toResponse();
     }
 
     @Override

@@ -1,8 +1,9 @@
 package com.example.payheretest.controller;
 
 import com.example.payheretest.dto.MoneyBookCreateRequest;
+import com.example.payheretest.dto.MoneyBookPatchUpdateRequest;
 import com.example.payheretest.dto.MoneyBookResponse;
-import com.example.payheretest.dto.MoneyBookUpdateRequest;
+import com.example.payheretest.dto.MoneyBookPutUpdateRequest;
 import com.example.payheretest.service.MoneyBookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,14 +36,14 @@ public class MoneyBookController {
 
     @PutMapping("{id}")
     MoneyBookResponse putUpdate(@PathVariable final Long id,
-                             @Valid final @RequestBody MoneyBookUpdateRequest moneyBookUpdateRequest) {
-        return moneyBookService.putUpdate(id, moneyBookUpdateRequest);
+                             @Valid final @RequestBody MoneyBookPutUpdateRequest moneyBookPutUpdateRequest) {
+        return moneyBookService.putUpdate(id, moneyBookPutUpdateRequest);
     }
 
     @PatchMapping("{id}")
     MoneyBookResponse patchUpdate(@PathVariable Long id,
-                             @Valid final @RequestBody MoneyBookUpdateRequest moneyBookUpdateRequest) {
-        return moneyBookService.patchUpdate(id, moneyBookUpdateRequest);
+                             @Valid final @RequestBody MoneyBookPatchUpdateRequest moneyBookPatchUpdateRequest) {
+        return moneyBookService.patchUpdate(id, moneyBookPatchUpdateRequest);
     }
 
     @DeleteMapping("{id}")

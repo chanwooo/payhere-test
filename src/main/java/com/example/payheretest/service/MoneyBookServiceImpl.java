@@ -37,7 +37,7 @@ public class MoneyBookServiceImpl implements MoneyBookService {
 
     @Override
     @Transactional
-    public MoneyBookResponse patchUpdate(Long moneyBookId, MoneyBookUpdateRequest moneyBookUpdateRequest) {
+    public MoneyBookResponse patchUpdate(long moneyBookId, MoneyBookUpdateRequest moneyBookUpdateRequest) {
         MoneyBook moneyBook = moneyBookRepository.findById(moneyBookId)
                 .orElseThrow(NoSuchMoneyBookException::new);
 
@@ -46,7 +46,7 @@ public class MoneyBookServiceImpl implements MoneyBookService {
 
     @Override
     @Transactional
-    public MoneyBookResponse putUpdate(Long moneyBookId, MoneyBookUpdateRequest moneyBookUpdateRequest) {
+    public MoneyBookResponse putUpdate(long moneyBookId, MoneyBookUpdateRequest moneyBookUpdateRequest) {
         MoneyBook moneyBook = moneyBookRepository.findById(moneyBookId)
                 .orElseThrow(NoSuchMoneyBookException::new);
 
@@ -55,7 +55,7 @@ public class MoneyBookServiceImpl implements MoneyBookService {
 
     @Override
     @Transactional
-    public void delete(Long moneyBookId) {
+    public void delete(long moneyBookId) {
         MoneyBook moneyBook = moneyBookRepository.findByIdAndDeletedIsFalse(moneyBookId)
                 .orElseThrow(NoSuchMoneyBookException::new);
         moneyBook.delete();
@@ -70,7 +70,7 @@ public class MoneyBookServiceImpl implements MoneyBookService {
     }
 
     @Override
-    public MoneyBookResponse get(Long moneyBookId) {
+    public MoneyBookResponse get(long moneyBookId) {
         return moneyBookRepository.findByIdAndDeletedIsFalse(moneyBookId)
                 .orElseThrow(NoSuchMoneyBookException::new)
                 .toResponse();

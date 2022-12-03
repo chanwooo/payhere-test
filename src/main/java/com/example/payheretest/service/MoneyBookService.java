@@ -9,9 +9,9 @@ import java.util.List;
 public interface MoneyBookService {
 
     MoneyBookResponse create(MoneyBookCreateRequest moneyBookCreateRequest);
-    MoneyBookResponse patchUpdate(Long moneyBookId, MoneyBookUpdateRequest moneyBookUpdateRequest);
-    MoneyBookResponse putUpdate(Long moneyBookId, MoneyBookUpdateRequest moneyBookUpdateRequest);
-    void delete(Long moneyBookId);
+    MoneyBookResponse patchUpdate(long moneyBookId, MoneyBookUpdateRequest moneyBookUpdateRequest);
+    MoneyBookResponse putUpdate(long moneyBookId, MoneyBookUpdateRequest moneyBookUpdateRequest);
+    void delete(long moneyBookId);
     List<MoneyBookResponse> list();
-    MoneyBookResponse get(Long moneyBookId);
+    MoneyBookResponse get(long moneyBookId);
 }

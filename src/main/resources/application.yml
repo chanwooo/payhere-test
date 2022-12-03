@@ -1,6 +1,3 @@
-# ??
-
-#springdoc swagger
 springdoc:
   api-docs:
     path: /docs
@@ -9,7 +6,11 @@ springdoc:
     display-request-duration: true
   cache:
     disabled: true
-
+server:
+  error:
+    include-stacktrace: never
+    include-message: always
+    include-binding-errors: never
 ---
 spring:
   config:
@@ -27,11 +28,7 @@ spring:
         show_sql: true
         format_sql: true
         use_sql_comments: true
-server:
-  error:
-    include-stacktrace: never
-    include-message: always
-    include-binding-errors: never
+
 ---
 spring:
   config:
@@ -39,6 +36,7 @@ spring:
       on-profile: dev
     import:
       - classpath:mysql-conn.yml # datasource: driver, url, username, password
+      - classpath:mysql-conn-chanwoo.yml # datasource: driver, url, username, password
   jpa:
     hibernate:
       ddl-auto: update
@@ -49,6 +47,8 @@ spring:
       on-profile: prod
     import:
       - classpath:mysql-conn.yml # datasource: driver, url, username, password
+      - classpath:mysql-conn-chanwoo.yml # datasource: driver, url, username, password
+
   jpa:
     hibernate:
       ddl-auto: none

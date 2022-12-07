@@ -1,5 +1,5 @@
 # 페이히어 과제테스트 - MoneyBook
-http://moneybook.chanwookim.me/
+http://moneybook.chanwookim.me/swagger-ui/index.html
 
 
 ## 요구사항

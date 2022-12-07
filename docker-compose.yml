@@ -1,0 +1,30 @@
+version: "3"
+services:
+  spring:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - "SPRING_PROFILES_ACTIVE=prod"
+      - "SPRING_DATASOURCE_URL=jdbc:mysql://mysql/moneybook-prod"
+      - "SPRING_DATASOURCE_USERNAME=root"
+      - "SPRING_DATASOURCE_PASSWORD=root@@"
+
+    depends_on:
+      - mysql
+    restart: always
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: "moneybook-prod"
+      MYSQL_ROOT_PASSWORD: "root@@"
+      TZ: Asia/Seoul
+    volumes:
+      - ./mysql-init.d:/docker-entrypoint-initdb.d
+    ports:
+      - "13306:3306"
+    command:
+      - "--character-set-server=utf8mb4"
+      - "--collation-server=utf8mb4_unicode_ci"
+

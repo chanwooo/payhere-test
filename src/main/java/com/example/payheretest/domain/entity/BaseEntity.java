@@ -1,4 +1,4 @@
-package com.example.payheretest.domain;
+package com.example.payheretest.domain.entity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -25,5 +25,9 @@ public class BaseEntity {
     public void delete() {
         this.deleted = true;
         this.deleted_at = LocalDateTime.now();
+    }
+
+    public void update() {
+        this.updated_at = LocalDateTime.now();
     }
 }

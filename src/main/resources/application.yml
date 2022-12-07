@@ -11,6 +11,11 @@ server:
     include-stacktrace: never
     include-message: always
     include-binding-errors: never
+security.jwt.token:
+  secretKey: fd1a7e9e-73fe-11ed-87eb-7ae1364e0a63
+  aliveDurationMilli: 3600000 #1 hour
+
+
 ---
 spring:
   config:

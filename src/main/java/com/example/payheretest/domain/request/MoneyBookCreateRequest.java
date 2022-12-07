@@ -1,4 +1,4 @@
-package com.example.payheretest.dto;
+package com.example.payheretest.domain.request;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
 @Data
@@ -14,10 +15,12 @@ import javax.validation.constraints.PositiveOrZero;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class MoneyBookPatchUpdateRequest {
+public class MoneyBookCreateRequest {
 
+    @NotNull
     @PositiveOrZero
     private Long money;
 
+    @NotNull
     private String memo;
 }

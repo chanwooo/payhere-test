@@ -1,5 +1,6 @@
 package com.example.payheretest.security;
 
+import com.example.payheretest.domain.entity.User;
 import com.example.payheretest.exception.NoSuchUserException;
 import com.example.payheretest.repository.UserRepository;
 import io.jsonwebtoken.Claims;
@@ -27,7 +28,8 @@ public class JwtTokenProvider {
 
     public JwtTokenProvider(@Value("${security.jwt.token.secretKey}") final String secretKey,
                             @Value("${security.jwt.token.aliveDurationMilli}") final long aliveDurationMilli,
-                            final UserRepository userRepository) {
+                            final UserRepository userRepository
+    ) {
         this.encodedSecretKey = Keys.hmacShaKeyFor(Base64.getEncoder().encode(secretKey.getBytes()));
         this.aliveDurationMilli = aliveDurationMilli;
         this.userRepository = userRepository;
@@ -38,6 +40,9 @@ public class JwtTokenProvider {
 
         Date now = new Date();
         Date expiredAt = new Date(now.getTime() + aliveDurationMilli);
+        userRepository.findByEmail(userId)
+                .orElseThrow(NoSuchUserException::new)
+                .setExpiredAt(expiredAt.getTime());
 
         return Jwts.builder()
                 .setClaims(claims)
@@ -57,7 +62,12 @@ public class JwtTokenProvider {
 
     public String getUserId(String token) {
         try {
-            return Jwts.parserBuilder().setSigningKey(encodedSecretKey).build().parseClaimsJws(token).getBody().getSubject();
+            return Jwts.parserBuilder()
+                    .setSigningKey(encodedSecretKey)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody()
+                    .getSubject();
         } catch (Exception e) {
             return null;
         }
@@ -65,12 +75,23 @@ public class JwtTokenProvider {
 
     public boolean validateToken(String token) {
         try {
-            Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(encodedSecretKey).build().parseClaimsJws(token);
+            Jws<Claims> claims = Jwts.parserBuilder()
+                    .setSigningKey(encodedSecretKey)
+                    .build()
+                    .parseClaimsJws(token);
+
             Claims body = claims.getBody();
+
+            User user = userRepository.findByEmail(body.getSubject()).orElseThrow(NoSuchUserException::new);
+
             if (body.getExpiration().before(new Date())) {
                 return false;
             }
-            userRepository.findByEmail(body.getSubject()).orElseThrow(NoSuchUserException::new);
+
+            if (new Date(user.getExpiredAt()).before(new Date())) {
+                return false;
+            }
+
             return true;
 
         } catch (JwtException | IllegalArgumentException e) {

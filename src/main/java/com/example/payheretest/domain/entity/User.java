@@ -22,6 +22,8 @@ public class User extends BaseEntity {
     private String email;
     private String hashedPassword;
     private String name;
+    @Setter
+    private Long expiredAt;
 
 
     public UserResponse toResponse() {
@@ -29,6 +31,7 @@ public class User extends BaseEntity {
                 .id(super.getId())
                 .email(email)
                 .name(name)
+                .expiredAt(expiredAt)
                 .build();
     }
 

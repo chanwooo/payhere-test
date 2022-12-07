@@ -1,8 +1,8 @@
-package com.example.payheretest.domain;
+package com.example.payheretest.domain.entity;
 
-import com.example.payheretest.dto.MoneyBookRequest;
-import com.example.payheretest.dto.MoneyBookResponse;
-import com.example.payheretest.dto.MoneyBookUpdateRequest;
+import com.example.payheretest.domain.request.MoneyBookRequest;
+import com.example.payheretest.domain.response.MoneyBookResponse;
+import com.example.payheretest.domain.request.MoneyBookUpdateRequest;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

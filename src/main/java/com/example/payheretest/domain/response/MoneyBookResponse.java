@@ -1,4 +1,4 @@
-package com.example.payheretest.dto;
+package com.example.payheretest.domain.response;
 
 import lombok.AccessLevel;
 import lombok.Builder;

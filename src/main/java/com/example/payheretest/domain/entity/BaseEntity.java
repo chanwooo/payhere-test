@@ -1,4 +1,4 @@
-package com.example.payheretest.domain;
+package com.example.payheretest.domain.entity;
 
 import lombok.Getter;
 import lombok.Setter;

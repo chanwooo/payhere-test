@@ -14,6 +14,6 @@ public class MoneyBookResponse {
     private Long id;
     private Long money;
     private String memo;
-    private LocalDateTime created_at;
-    private LocalDateTime updated_at;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }

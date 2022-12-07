@@ -31,8 +31,8 @@ public class MoneyBook extends BaseEntity {
                 .id(getId())
                 .money(money)
                 .memo(memo)
-                .created_at(getCreated_at())
-                .updated_at(getUpdated_at())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt())
                 .build();
     }
     public MoneyBook patchUpdate(MoneyBookUpdateRequest moneyBookUpdateRequest) {

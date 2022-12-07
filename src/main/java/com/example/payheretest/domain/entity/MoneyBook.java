@@ -1,8 +1,7 @@
 package com.example.payheretest.domain.entity;
 
-import com.example.payheretest.domain.request.MoneyBookRequest;
-import com.example.payheretest.domain.response.MoneyBookResponse;
 import com.example.payheretest.domain.request.MoneyBookUpdateRequest;
+import com.example.payheretest.domain.response.MoneyBookResponse;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +12,6 @@ import lombok.Setter;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import java.time.LocalDateTime;
 
 @Data
 @Setter(AccessLevel.NONE)
@@ -28,15 +26,6 @@ public class MoneyBook extends BaseEntity {
     private Long money;
     private String memo;
 
-
-    public static MoneyBook of(User user, MoneyBookRequest moneyBookRequest) {
-        return MoneyBook.builder()
-                .user(user)
-                .money(moneyBookRequest.getMoney())
-                .memo(moneyBookRequest.getMemo())
-                .build();
-    }
-
     public MoneyBookResponse toResponse() {
         return MoneyBookResponse.builder()
                 .id(getId())
@@ -47,17 +36,18 @@ public class MoneyBook extends BaseEntity {
                 .build();
     }
     public MoneyBook patchUpdate(MoneyBookUpdateRequest moneyBookUpdateRequest) {
+        super.update();
         this.money = moneyBookUpdateRequest.getMoney() != null
                 ? moneyBookUpdateRequest.getMoney()
                 : money;
         this.memo = moneyBookUpdateRequest.getMemo() != null
                 ? moneyBookUpdateRequest.getMemo()
                 : memo;
-        this.setUpdated_at(LocalDateTime.now());
         return this;
     }
 
     public MoneyBook putUpdate(MoneyBookUpdateRequest moneyBookUpdateRequest) {
+        super.update();
         this.money = moneyBookUpdateRequest.getMoney();
         this.memo = moneyBookUpdateRequest.getMemo();
         return this;

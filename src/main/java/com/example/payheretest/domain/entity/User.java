@@ -33,6 +33,7 @@ public class User extends BaseEntity {
     }
 
     public void updateName(String name) {
+        super.update();
         this.name = name;
     }
 }

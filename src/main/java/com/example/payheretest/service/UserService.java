@@ -53,8 +53,8 @@ public class UserService {
                 .build();
     }
 
-    public UserResponse getByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(NoSuchUserException::new).toResponse();
+    public User getByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(NoSuchUserException::new);
     }
 
     @Transactional

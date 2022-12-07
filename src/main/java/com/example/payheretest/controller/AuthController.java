@@ -42,7 +42,7 @@ public class AuthController {
     @GetMapping("user")
     public UserResponse userInfo(HttpServletRequest request) {
         String userEmail = jwtTokenProvider.getUserId(request);
-        return userService.getByEmail(userEmail);
+        return userService.getByEmail(userEmail).toResponse();
     }
 
     @SecurityRequirement(name="Bearer Authentication")

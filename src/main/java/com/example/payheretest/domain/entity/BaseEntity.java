@@ -26,4 +26,8 @@ public class BaseEntity {
         this.deleted = true;
         this.deleted_at = LocalDateTime.now();
     }
+
+    public void update() {
+        this.updated_at = LocalDateTime.now();
+    }
 }

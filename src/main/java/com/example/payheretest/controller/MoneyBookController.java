@@ -1,9 +1,11 @@
 package com.example.payheretest.controller;
 
-import com.example.payheretest.dto.MoneyBookCreateRequest;
-import com.example.payheretest.dto.MoneyBookResponse;
-import com.example.payheretest.dto.MoneyBookUpdateRequest;
+import com.example.payheretest.domain.request.MoneyBookCreateRequest;
+import com.example.payheretest.domain.response.MoneyBookResponse;
+import com.example.payheretest.domain.request.MoneyBookUpdateRequest;
+import com.example.payheretest.security.JwtTokenProvider;
 import com.example.payheretest.service.MoneyBookService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,47 +19,75 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("v1/moneybook")
+@SecurityRequirement(name = "Bearer Authentication")
+@RequestMapping("/api/v1/moneybook")
 public class MoneyBookController {
 
     private final MoneyBookService moneyBookService;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    MoneyBookResponse create(@Valid final @RequestBody MoneyBookCreateRequest moneyBookCreateRequest) {
-        return moneyBookService.create(moneyBookCreateRequest);
+    MoneyBookResponse create(
+            HttpServletRequest request,
+            @Valid final @RequestBody
+            MoneyBookCreateRequest moneyBookCreateRequest
+    ) {
+        String userId = jwtTokenProvider.getUserId(request);
+
+        return moneyBookService.create(userId, moneyBookCreateRequest);
     }
 
     @PutMapping("{id}")
-    MoneyBookResponse putUpdate(@PathVariable final Long id,
-                             @Valid final @RequestBody MoneyBookUpdateRequest moneyBookUpdateRequest) {
-        return moneyBookService.putUpdate(id, moneyBookUpdateRequest);
+    MoneyBookResponse putUpdate(
+            HttpServletRequest request,
+            @PathVariable final Long id,
+            @Valid final @RequestBody MoneyBookUpdateRequest moneyBookUpdateRequest
+    ) {
+        String userEmail = jwtTokenProvider.getUserId(request);
+        return moneyBookService.putUpdate(userEmail, id, moneyBookUpdateRequest);
     }
 
     @PatchMapping("{id}")
-    MoneyBookResponse patchUpdate(@PathVariable Long id,
-                             @Valid final @RequestBody MoneyBookUpdateRequest moneyBookUpdateRequest) {
-        return moneyBookService.patchUpdate(id, moneyBookUpdateRequest);
+    MoneyBookResponse patchUpdate(
+            HttpServletRequest request,
+            @PathVariable Long id,
+            @Valid final @RequestBody MoneyBookUpdateRequest moneyBookUpdateRequest
+    ) {
+        String userEmail = jwtTokenProvider.getUserId(request);
+        return moneyBookService.patchUpdate(userEmail, id, moneyBookUpdateRequest);
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void delete(@PathVariable final Long id) {
-        moneyBookService.delete(id);
+    void delete(
+            HttpServletRequest request,
+            @PathVariable final Long id
+    ) {
+        String userEmail = jwtTokenProvider.getUserId(request);
+        moneyBookService.delete(userEmail, id);
     }
 
     @GetMapping
-    List<MoneyBookResponse> list() {
-        return moneyBookService.list();
+    List<MoneyBookResponse> list(
+            HttpServletRequest request
+    ) {
+        String userEmail = jwtTokenProvider.getUserId(request);
+        return moneyBookService.list(userEmail);
     }
 
     @GetMapping("{id}")
-    MoneyBookResponse get(@PathVariable final Long id) {
-        return moneyBookService.get(id);
+    MoneyBookResponse get(
+            HttpServletRequest request,
+            @PathVariable final Long id
+    ) {
+        String userEmail = jwtTokenProvider.getUserId(request);
+        return moneyBookService.get(userEmail, id);
     }
 }

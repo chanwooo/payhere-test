@@ -31,17 +31,13 @@ public class JwtTokenProvider {
         this.encodedSecretKey = Keys.hmacShaKeyFor(Base64.getEncoder().encode(secretKey.getBytes()));
         this.aliveDurationMilli = aliveDurationMilli;
         this.userRepository = userRepository;
-        log.info("secretKey = " + secretKey);
-        log.info("aliveDurationMilli = " + aliveDurationMilli);
     }
 
     public String createToken(String userId) {
         Claims claims = Jwts.claims().setSubject(userId);
 
         Date now = new Date();
-        log.info("now = " + now);
         Date expiredAt = new Date(now.getTime() + aliveDurationMilli);
-        log.info("expiredAt = " + expiredAt);
 
         return Jwts.builder()
                 .setClaims(claims)
@@ -53,7 +49,6 @@ public class JwtTokenProvider {
 
     public String resolveToken(HttpServletRequest req) {
         String bearerToken = req.getHeader("Authorization");
-        log.info("bearerToken = " + bearerToken);
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
         }

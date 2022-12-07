@@ -18,16 +18,16 @@ public class BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private boolean deleted;
-    private LocalDateTime created_at = LocalDateTime.now();
-    private LocalDateTime updated_at;
-    private LocalDateTime deleted_at;
+    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime updatedAt;
+    private LocalDateTime deletedAt;
 
     public void delete() {
         this.deleted = true;
-        this.deleted_at = LocalDateTime.now();
+        this.deletedAt = LocalDateTime.now();
     }
 
     public void update() {
-        this.updated_at = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 }

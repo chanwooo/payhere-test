@@ -9,10 +9,7 @@ import java.util.Optional;
 public interface MoneyBookRepository extends JpaRepository<MoneyBook, Long> {
 
     Optional<MoneyBook> findByIdAndDeletedIsFalse(Long id);
-    Optional<MoneyBook> findByUserEmailAndDeletedIsFalse(String email);
 
-
-    //    List<MoneyBook> findAllByUserIdAndDeletedIsFalse(Long userId);
     List<MoneyBook> findAllByUserEmailAndDeletedIsFalse(String  email);
 
 }

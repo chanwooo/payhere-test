@@ -18,6 +18,7 @@ import javax.validation.constraints.PositiveOrZero;
 public class MoneyBookUpdateRequest {
 
     @PositiveOrZero
+    @NotNull
     private Long money;
 
     @NotNull

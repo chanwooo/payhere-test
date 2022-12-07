@@ -41,19 +41,21 @@ spring:
       on-profile: dev
     import:
       - classpath:mysql-conn.yml # datasource: driver, url, username, password
-      - classpath:mysql-conn-chanwoo.yml # datasource: driver, url, username, password
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
 ---
 spring:
   config:
     activate:
       on-profile: prod
-    import:
-      - classpath:mysql-conn.yml # datasource: driver, url, username, password
-      - classpath:mysql-conn-chanwoo.yml # datasource: driver, url, username, password
 
+### docker-compose.yml
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://mysql/moneybook-prod
+#    username: root
+#    password: root@@
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: create

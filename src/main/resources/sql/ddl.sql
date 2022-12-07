@@ -1,24 +1,24 @@
 create table users
 (
-    id         bigint auto_increment
+    id              bigint auto_increment
         primary key,
-    created_at datetime     null,
-    deleted    bit          not null,
-    deleted_at datetime     null,
-    updated_at datetime     null,
-    email      varchar(255) null,
-    name       varchar(255) null,
-    password   varchar(255) null
+    created_at      datetime(6)  null,
+    deleted         bit          not null,
+    deleted_at      datetime(6)  null,
+    updated_at      datetime(6)  null,
+    email           varchar(255) null,
+    hashed_password varchar(255) null,
+    name            varchar(255) null
 );
 
 create table money_book
 (
     id         bigint auto_increment
         primary key,
-    created_at datetime     null,
+    created_at datetime(6)  null,
     deleted    bit          not null,
-    deleted_at datetime     null,
-    updated_at datetime     null,
+    deleted_at datetime(6)  null,
+    updated_at datetime(6)  null,
     memo       varchar(255) null,
     money      bigint       null,
     user_id    bigint       null,

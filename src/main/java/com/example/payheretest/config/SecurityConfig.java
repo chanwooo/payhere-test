@@ -15,6 +15,7 @@ public class SecurityConfig {
         filterRegistrationBean.setFilter(new JwtTokenFilter(jwtTokenProvider));
         filterRegistrationBean.addUrlPatterns("/api/v1/*");
         filterRegistrationBean.addUrlPatterns("/auth/user/*");
+        filterRegistrationBean.addUrlPatterns("/auth/logout/*");
         return filterRegistrationBean;
     }
 }

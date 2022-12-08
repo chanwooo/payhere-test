@@ -38,24 +38,24 @@ public class AuthController {
         return userService.login(authRequest);
     }
 
-    @SecurityRequirement(name="Bearer Authentication")
-    @GetMapping("user")
-    public UserResponse userInfo(HttpServletRequest request) {
-        String userEmail = jwtTokenProvider.getUserId(request);
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PostMapping("/logout")
+    public UserResponse logout(final HttpServletRequest request) {
+        final String userEmail = jwtTokenProvider.getUserId(request);
+        return userService.logout(userEmail);
+    }
+
+    @SecurityRequirement(name = "Bearer Authentication")
+    @GetMapping("/user")
+    public UserResponse userInfo(final HttpServletRequest request) {
+        final String userEmail = jwtTokenProvider.getUserId(request);
         return userService.getByEmail(userEmail).toResponse();
     }
 
-    @SecurityRequirement(name="Bearer Authentication")
-    @PatchMapping("user")
-    public UserResponse updateName(HttpServletRequest request, String name) {
-        String userEmail = jwtTokenProvider.getUserId(request);
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PatchMapping("/user")
+    public UserResponse updateName(final HttpServletRequest request, final String name) {
+        final String userEmail = jwtTokenProvider.getUserId(request);
         return userService.updateUserName(userEmail, name);
-    }
-
-    @SecurityRequirement(name="Bearer Authentication")
-    @PostMapping("/logout")
-    public UserResponse logout(HttpServletRequest request) {
-        String userEmail = jwtTokenProvider.getUserId(request);
-        return userService.logout(userEmail);
     }
 }

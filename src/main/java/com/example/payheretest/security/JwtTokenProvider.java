@@ -35,7 +35,7 @@ public class JwtTokenProvider {
         this.userRepository = userRepository;
     }
 
-    public String createToken(String userId) {
+    public String createToken(final String userId) {
         Claims claims = Jwts.claims().setSubject(userId);
 
         Date now = new Date();
@@ -52,7 +52,7 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public String resolveToken(HttpServletRequest req) {
+    public String resolveToken(final HttpServletRequest req) {
         String bearerToken = req.getHeader("Authorization");
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
@@ -60,7 +60,7 @@ public class JwtTokenProvider {
         return null;
     }
 
-    public String getUserId(String token) {
+    public String getUserId(final String token) {
         try {
             return Jwts.parserBuilder()
                     .setSigningKey(encodedSecretKey)
@@ -73,7 +73,7 @@ public class JwtTokenProvider {
         }
     }
 
-    public boolean validateToken(String token) {
+    public boolean validateToken(final String token) {
         try {
             Jws<Claims> claims = Jwts.parserBuilder()
                     .setSigningKey(encodedSecretKey)
@@ -99,9 +99,8 @@ public class JwtTokenProvider {
         }
     }
 
-    public String getUserId(HttpServletRequest request) {
+    public String getUserId(final HttpServletRequest request) {
         String token = resolveToken(request);
         return getUserId(token);
     }
-
 }

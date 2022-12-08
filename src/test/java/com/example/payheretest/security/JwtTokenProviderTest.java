@@ -30,9 +30,11 @@ class JwtTokenProviderTest {
     JwtTokenProvider jwtTokenProvider;
 
     final String secretKey = "fd1a7e9e-73fe-11ed-87eb-7ae1364e0a63";
-    final long aliveDurationMilli = 3600000L;
+    final long aliveDurationMilli = 3600000L; // 1 hour
     final String testUserEmail = "testuser@payhere.in";
-    final String sampleToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0dXNlckBwYXloZXJlLmluIiwiaWF0IjoxNjcwNDc4NjUyLCJleHAiOjE2NzA0ODIyNTJ9.AMttLIxr1xgZ4Q4UY-15Jj5K3O_E_nW1F969BBEdFvs";
+
+    // 10 years token(testuser@payhere.in)
+    final String sampleToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0dXNlckBwYXloZXJlLmluIiwiaWF0IjoxNjcwNDkwNDExLCJleHAiOjE5ODU4NTA0MTF9.b70734sk65VzF_QheC_yzUxvl8Ql-GUdKug5B3gbrk4";
 
     @BeforeEach
     void before() {
@@ -103,6 +105,7 @@ class JwtTokenProviderTest {
                 .email(testUserEmail)
                 .expiredAt(largeExpire)
                 .build();
+        when(userRepository.findByEmail(testUserEmail)).thenReturn(Optional.of(user));
 
         final String token = jwtTokenProvider.createToken(testUserEmail);
         log.info("token = " + token);

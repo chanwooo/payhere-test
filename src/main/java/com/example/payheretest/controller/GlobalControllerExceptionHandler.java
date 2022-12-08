@@ -1,5 +1,6 @@
 package com.example.payheretest.controller;
 
+import com.example.payheretest.exception.InvalidAuthInfoException;
 import com.example.payheretest.exception.InvalidMoneyBookException;
 import com.example.payheretest.exception.NoSuchMoneyBookException;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,12 @@ class GlobalControllerExceptionHandler {
     @ResponseStatus(value = HttpStatus.FORBIDDEN, reason = "해당 거래에 권한이 없어요.")
     public void handleMoneyBookEmailInvalid() {
         log.error("403, 해당 거래에 권한이 없어요.");
+    }
+
+    @ExceptionHandler(InvalidAuthInfoException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "회원가입/로그인 정보가 잘못되었어요.")
+    public void handleInvalidAuthInfo(InvalidAuthInfoException e) {
+        log.error("400, "+ e.getDescription());
     }
 
     @ExceptionHandler(UnexpectedTypeException.class)

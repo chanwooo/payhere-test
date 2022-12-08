@@ -59,15 +59,20 @@ git clone https://github.com/chanwooo/payhere-test.git
 cd payhere-test
 ./start.sh
 ```
+> java 버전 관련으로 빌드 실패시: start.sh 파일 안에 java경로 지정된 라인 주석 해제
+
+> mac os에서 mysql5.7 이미지를 못가져오는경우 `docker-compose` 파일 안에 `platform`이 있는 라인 주석 해제
+
 
 ### 종료
 ```shell
 ./stop.sh
 ```
 
+
 ## 예상 실행순서
 
-1. /auth/signup : 회원가입
-2. /auth/login : 로그인 해서 token을 받음.
-3. 2에서 받은 access token을 Authorization Header에 설정하여 각 api를 요청
+1. `/auth/signup` : 회원가입
+2. `/auth/login` : 로그인 해서 token을 받음.
+3. `2`에서 받은 `access token`을 `Authorization Header`에 설정하여 각 api를 요청
 

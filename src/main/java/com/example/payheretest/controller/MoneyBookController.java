@@ -1,6 +1,8 @@
 package com.example.payheretest.controller;
 
 import com.example.payheretest.domain.request.MoneyBookCreateRequest;
+import com.example.payheretest.domain.request.MoneyBookPatchUpdateRequest;
+import com.example.payheretest.domain.request.MoneyBookPutUpdateRequest;
 import com.example.payheretest.domain.response.MoneyBookResponse;
 import com.example.payheretest.security.JwtTokenProvider;
 import com.example.payheretest.service.MoneyBookService;
@@ -53,10 +55,10 @@ public class MoneyBookController {
             final HttpServletRequest request,
             @Parameter(description = "수정할 기록의 id")
             @PathVariable final Long id,
-            @Valid @RequestBody final MoneyBookUpdateRequest moneyBookUpdateRequest
+            @Valid @RequestBody final MoneyBookPutUpdateRequest moneyBookPutUpdateRequest
     ) {
         String userEmail = jwtTokenProvider.getUserId(request);
-        return moneyBookService.putUpdate(userEmail, id, moneyBookUpdateRequest);
+        return moneyBookService.putUpdate(userEmail, id, moneyBookPutUpdateRequest);
     }
 
     @Operation(summary = "기록을 부분 수정")
@@ -65,10 +67,10 @@ public class MoneyBookController {
             final HttpServletRequest request,
             @Parameter(description = "부분 수정할 기록의 id")
             @PathVariable final Long id,
-            @Valid @RequestBody final MoneyBookUpdateRequest moneyBookUpdateRequest
+            @Valid @RequestBody final MoneyBookPatchUpdateRequest moneyBookPatchUpdateRequest
     ) {
         String userEmail = jwtTokenProvider.getUserId(request);
-        return moneyBookService.patchUpdate(userEmail, id, moneyBookUpdateRequest);
+        return moneyBookService.patchUpdate(userEmail, id, moneyBookPatchUpdateRequest);
     }
 
     @Operation(summary = "기록을 삭제")

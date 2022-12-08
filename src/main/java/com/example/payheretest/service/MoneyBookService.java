@@ -3,7 +3,8 @@ package com.example.payheretest.service;
 import com.example.payheretest.domain.entity.MoneyBook;
 import com.example.payheretest.domain.entity.User;
 import com.example.payheretest.domain.request.MoneyBookCreateRequest;
-import com.example.payheretest.domain.request.MoneyBookUpdateRequest;
+import com.example.payheretest.domain.request.MoneyBookPatchUpdateRequest;
+import com.example.payheretest.domain.request.MoneyBookPutUpdateRequest;
 import com.example.payheretest.domain.response.MoneyBookResponse;
 import com.example.payheretest.exception.InvalidMoneyBookException;
 import com.example.payheretest.exception.NoSuchMoneyBookException;
@@ -43,13 +44,13 @@ public class MoneyBookService {
     public MoneyBookResponse patchUpdate(
             final String userEmail,
             final long moneyBookId,
-            final MoneyBookUpdateRequest moneyBookUpdateRequest
+            final MoneyBookPatchUpdateRequest moneyBookPatchUpdateRequest
     ) {
         MoneyBook moneyBook = moneyBookRepository.findByIdAndDeletedIsFalse(moneyBookId)
                 .orElseThrow(NoSuchMoneyBookException::new);
         checkMoneyBookEmailValid(userEmail, moneyBook);
 
-        return moneyBook.patchUpdate(moneyBookUpdateRequest).toResponse();
+        return moneyBook.patchUpdate(moneyBookPatchUpdateRequest).toResponse();
     }
 
 
@@ -57,13 +58,13 @@ public class MoneyBookService {
     public MoneyBookResponse putUpdate(
             final String userEmail,
             final long moneyBookId,
-            final MoneyBookUpdateRequest moneyBookUpdateRequest
+            final MoneyBookPutUpdateRequest moneyBookPutUpdateRequest
     ) {
         MoneyBook moneyBook = moneyBookRepository.findByIdAndDeletedIsFalse(moneyBookId)
                 .orElseThrow(NoSuchMoneyBookException::new);
         checkMoneyBookEmailValid(userEmail, moneyBook);
 
-        return moneyBook.putUpdate(moneyBookUpdateRequest).toResponse();
+        return moneyBook.putUpdate(moneyBookPutUpdateRequest).toResponse();
     }
 
     @Transactional

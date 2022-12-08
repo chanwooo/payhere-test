@@ -16,6 +16,8 @@ services:
 
   mysql:
     image: mysql:5.7
+#    platform: linux/amd64 #for apple silicon mac
+
     environment:
       MYSQL_DATABASE: "moneybook-prod"
       MYSQL_ROOT_PASSWORD: "root@@"

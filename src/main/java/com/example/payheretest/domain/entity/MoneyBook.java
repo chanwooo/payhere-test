@@ -1,6 +1,7 @@
 package com.example.payheretest.domain.entity;
 
-import com.example.payheretest.domain.request.MoneyBookUpdateRequest;
+import com.example.payheretest.domain.request.MoneyBookPatchUpdateRequest;
+import com.example.payheretest.domain.request.MoneyBookPutUpdateRequest;
 import com.example.payheretest.domain.response.MoneyBookResponse;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -35,21 +36,22 @@ public class MoneyBook extends BaseEntity {
                 .updatedAt(getUpdatedAt())
                 .build();
     }
-    public MoneyBook patchUpdate(MoneyBookUpdateRequest moneyBookUpdateRequest) {
+
+    public MoneyBook patchUpdate(MoneyBookPatchUpdateRequest moneyBookPatchUpdateRequest) {
         super.update();
-        this.money = moneyBookUpdateRequest.getMoney() != null
-                ? moneyBookUpdateRequest.getMoney()
+        this.money = moneyBookPatchUpdateRequest.getMoney() != null
+                ? moneyBookPatchUpdateRequest.getMoney()
                 : money;
-        this.memo = moneyBookUpdateRequest.getMemo() != null
-                ? moneyBookUpdateRequest.getMemo()
+        this.memo = moneyBookPatchUpdateRequest.getMemo() != null
+                ? moneyBookPatchUpdateRequest.getMemo()
                 : memo;
         return this;
     }
 
-    public MoneyBook putUpdate(MoneyBookUpdateRequest moneyBookUpdateRequest) {
+    public MoneyBook putUpdate(MoneyBookPutUpdateRequest moneyBookPutUpdateRequest) {
         super.update();
-        this.money = moneyBookUpdateRequest.getMoney();
-        this.memo = moneyBookUpdateRequest.getMemo();
+        this.money = moneyBookPutUpdateRequest.getMoney();
+        this.memo = moneyBookPutUpdateRequest.getMemo();
         return this;
     }
 }

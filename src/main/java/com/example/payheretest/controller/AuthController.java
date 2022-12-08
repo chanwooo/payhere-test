@@ -51,4 +51,11 @@ public class AuthController {
         String userEmail = jwtTokenProvider.getUserId(request);
         return userService.updateUserName(userEmail, name);
     }
+
+    @SecurityRequirement(name="Bearer Authentication")
+    @PostMapping("/logout")
+    public UserResponse logout(HttpServletRequest request) {
+        String userEmail = jwtTokenProvider.getUserId(request);
+        return userService.logout(userEmail);
+    }
 }

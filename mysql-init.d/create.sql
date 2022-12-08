@@ -1,12 +1,3 @@
-
-alter table money_book
-drop
-foreign key fk_money_book_user_id_users_id
-
-drop table if exists money_book
-
-drop table if exists users
-
 create table users (
                        id bigint not null auto_increment,
                        created_at datetime(6),
@@ -18,7 +9,7 @@ create table users (
                        hashed_password varchar(255),
                        name varchar(255),
                        primary key (id)
-) engine=InnoDB
+) engine=InnoDB;
 
 create table money_book (
                             id bigint not null auto_increment,
@@ -30,9 +21,9 @@ create table money_book (
                             money bigint,
                             user_id bigint,
                             primary key (id)
-) engine=InnoDB
+) engine=InnoDB;
 
 alter table money_book
     add constraint fk_money_book_user_id_users_id
         foreign key (user_id)
-            references users (id)
+            references users (id);

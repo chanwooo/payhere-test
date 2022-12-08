@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 
 @OpenAPIDefinition(
         info = @Info(
-                title = "머니부기 (Money Book) API 명세서",
+                title = "머니부기 (Money Book) API",
                 description = "API 명세서",
                 version = "v1",
                 contact = @Contact(

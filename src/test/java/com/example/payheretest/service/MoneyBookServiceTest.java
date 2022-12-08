@@ -3,7 +3,8 @@ package com.example.payheretest.service;
 import com.example.payheretest.domain.entity.MoneyBook;
 import com.example.payheretest.domain.entity.User;
 import com.example.payheretest.domain.request.MoneyBookCreateRequest;
-import com.example.payheretest.domain.request.MoneyBookUpdateRequest;
+import com.example.payheretest.domain.request.MoneyBookPatchUpdateRequest;
+import com.example.payheretest.domain.request.MoneyBookPutUpdateRequest;
 import com.example.payheretest.domain.response.MoneyBookResponse;
 import com.example.payheretest.repository.MoneyBookRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -77,7 +78,7 @@ class MoneyBookServiceTest {
         long updateMoney = 100000L;
         String updateMemo = "update memo";
 
-        MoneyBookUpdateRequest moneyBookUpdateRequest = MoneyBookUpdateRequest.builder()
+        MoneyBookPatchUpdateRequest moneyBookPatchUpdateRequest = MoneyBookPatchUpdateRequest.builder()
                 .money(updateMoney)
                 .memo(updateMemo)
                 .build();
@@ -92,8 +93,9 @@ class MoneyBookServiceTest {
         when(moneyBookRepository.findByIdAndDeletedIsFalse(anyLong())).thenReturn(Optional.of(moneyBook));
 
         //when
-        MoneyBookResponse moneyBookResponse = moneyBookService.patchUpdate(userEmail, 1L, moneyBookUpdateRequest);
+        MoneyBookResponse moneyBookResponse = moneyBookService.patchUpdate(userEmail, 1L, moneyBookPatchUpdateRequest);
         log.info("moneyBookResponse = " + moneyBookResponse);
+
         //then
         assertThat(moneyBookResponse.getMoney()).isEqualTo(updateMoney);
         assertThat(moneyBookResponse.getMemo()).isEqualTo(updateMemo);
@@ -105,7 +107,7 @@ class MoneyBookServiceTest {
         long updateMoney = 100000L;
         String updateMemo = "update memo";
 
-        MoneyBookUpdateRequest moneyBookUpdateRequest = MoneyBookUpdateRequest.builder()
+        MoneyBookPutUpdateRequest moneyBookPutUpdateRequest = MoneyBookPutUpdateRequest.builder()
                 .money(updateMoney)
                 .memo(updateMemo)
                 .build();
@@ -120,8 +122,9 @@ class MoneyBookServiceTest {
         when(moneyBookRepository.findByIdAndDeletedIsFalse(anyLong())).thenReturn(Optional.of(moneyBook));
 
         //when
-        MoneyBookResponse moneyBookResponse = moneyBookService.putUpdate(userEmail, 1L, moneyBookUpdateRequest);
+        MoneyBookResponse moneyBookResponse = moneyBookService.putUpdate(userEmail, 1L, moneyBookPutUpdateRequest);
         log.info("moneyBookResponse = " + moneyBookResponse);
+
         //then
         assertThat(moneyBookResponse.getMoney()).isEqualTo(updateMoney);
         assertThat(moneyBookResponse.getMemo()).isEqualTo(updateMemo);
@@ -171,6 +174,7 @@ class MoneyBookServiceTest {
         List<MoneyBookResponse> list = moneyBookService.list(userEmail);
 
         list.forEach(moneyBookResponse -> log.info("moneyBookResponse = id=" + moneyBookResponse.getId() + ", money=" + moneyBookResponse.getMoney() + ", memo=" + moneyBookResponse.getMemo()));
+
         //then
         assertThat(list.size()).isEqualTo(testMoneyBookCount);
         for (int i = 0; i < testMoneyBookCount; i++) {

@@ -11,16 +11,16 @@ import lombok.Setter;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
-@Schema(description = "거래 기록 생성 요청")
+@Schema(description = "수정 요청, 모든 필드가 유효해야합니다.(Not Null)")
 @Data
 @Setter(AccessLevel.PROTECTED)
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class MoneyBookCreateRequest {
+public class MoneyBookPutUpdateRequest {
 
-    @NotNull
     @PositiveOrZero
+    @NotNull
     private Long money;
 
     @NotNull

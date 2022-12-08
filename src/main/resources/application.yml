@@ -14,8 +14,6 @@ server:
 security.jwt.token:
   secretKey: fd1a7e9e-73fe-11ed-87eb-7ae1364e0a63
   aliveDurationMilli: 3600000 #1 hour
-
-
 ---
 spring:
   config:
@@ -33,29 +31,11 @@ spring:
         show_sql: true
         format_sql: true
         use_sql_comments: true
-
----
-spring:
-  config:
-    activate:
-      on-profile: dev
-    import:
-      - classpath:mysql-conn.yml # datasource: driver, url, username, password
-  jpa:
-    hibernate:
-      ddl-auto: create
 ---
 spring:
   config:
     activate:
       on-profile: prod
-
-### docker-compose.yml
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://mysql/moneybook-prod
-#    username: root
-#    password: root@@
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate

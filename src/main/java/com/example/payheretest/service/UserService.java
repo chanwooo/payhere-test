@@ -25,7 +25,7 @@ public class UserService {
     private final JwtTokenProvider jwtTokenProvider;
 
     @Transactional
-    public UserResponse signUp(AuthRequest authRequest) throws InvalidAuthInfoException {
+    public UserResponse signUp(final AuthRequest authRequest) throws InvalidAuthInfoException {
         if (userRepository.findByEmail(authRequest.getId()).isPresent()) {
             log.error("Already registered user.");
             throw new InvalidAuthInfoException("Already registered user.");
@@ -43,7 +43,7 @@ public class UserService {
     }
 
     @Transactional
-    public LoginResponse login(AuthRequest authRequest) throws InvalidAuthInfoException {
+    public LoginResponse login(final AuthRequest authRequest) throws InvalidAuthInfoException {
         User user = userRepository.findByEmail(authRequest.getId()).orElseThrow(NoSuchUserException::new);
 
         if (!BCrypt.checkpw(authRequest.getPassword(), user.getHashedPassword())) {
@@ -58,19 +58,19 @@ public class UserService {
     }
 
     @Transactional
-    public UserResponse logout(String email) {
+    public UserResponse logout(final String email) {
         User user = userRepository.findByEmail(email).orElseThrow(NoSuchUserException::new);
         user.setExpiredAt(new Date().getTime());
         return user.toResponse();
     }
 
     @Transactional
-    public User getByEmail(String email) {
+    public User getByEmail(final String email) {
         return userRepository.findByEmail(email).orElseThrow(NoSuchUserException::new);
     }
 
     @Transactional
-    public UserResponse updateUserName(String email, String name) {
+    public UserResponse updateUserName(final String email, final String name) {
         User user = userRepository.findByEmail(email).orElseThrow(NoSuchUserException::new);
         user.updateName(name);
         return user.toResponse();

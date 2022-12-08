@@ -27,8 +27,8 @@ public class MoneyBookService {
 
     @Transactional
     public MoneyBookResponse create(
-            String userEmail,
-            MoneyBookCreateRequest moneyBookCreateRequest
+            final String userEmail,
+            final MoneyBookCreateRequest moneyBookCreateRequest
     ) {
         User user = userService.getByEmail(userEmail);
         MoneyBook moneyBook = MoneyBook.builder()
@@ -41,9 +41,9 @@ public class MoneyBookService {
 
     @Transactional
     public MoneyBookResponse patchUpdate(
-            String userEmail,
-            Long moneyBookId,
-            MoneyBookUpdateRequest moneyBookUpdateRequest
+            final String userEmail,
+            final long moneyBookId,
+            final MoneyBookUpdateRequest moneyBookUpdateRequest
     ) {
         MoneyBook moneyBook = moneyBookRepository.findByIdAndDeletedIsFalse(moneyBookId)
                 .orElseThrow(NoSuchMoneyBookException::new);
@@ -55,9 +55,9 @@ public class MoneyBookService {
 
     @Transactional
     public MoneyBookResponse putUpdate(
-            String userEmail,
-            Long moneyBookId,
-            MoneyBookUpdateRequest moneyBookUpdateRequest
+            final String userEmail,
+            final long moneyBookId,
+            final MoneyBookUpdateRequest moneyBookUpdateRequest
     ) {
         MoneyBook moneyBook = moneyBookRepository.findByIdAndDeletedIsFalse(moneyBookId)
                 .orElseThrow(NoSuchMoneyBookException::new);
@@ -68,8 +68,8 @@ public class MoneyBookService {
 
     @Transactional
     public void delete(
-            String userEmail,
-            Long moneyBookId
+            final String userEmail,
+            long moneyBookId
     ) {
         MoneyBook moneyBook = moneyBookRepository.findByIdAndDeletedIsFalse(moneyBookId)
                 .orElseThrow(NoSuchMoneyBookException::new);
@@ -78,7 +78,7 @@ public class MoneyBookService {
         moneyBook.delete();
     }
 
-    public List<MoneyBookResponse> list(String userEmail) {
+    public List<MoneyBookResponse> list(final String userEmail) {
         return moneyBookRepository.findAllByUserEmailAndDeletedIsFalse(userEmail)
                 .stream()
                 .map(MoneyBook::toResponse)
@@ -86,8 +86,8 @@ public class MoneyBookService {
     }
 
     public MoneyBookResponse get(
-            String userEmail,
-            Long moneyBookId
+            final String userEmail,
+            final Long moneyBookId
     ) {
         MoneyBook moneyBook = moneyBookRepository.findByIdAndDeletedIsFalse(moneyBookId)
                 .orElseThrow(NoSuchMoneyBookException::new);
@@ -97,8 +97,8 @@ public class MoneyBookService {
     }
 
     private void checkMoneyBookEmailValid(
-            String userEmail,
-            MoneyBook moneyBook
+            final String userEmail,
+            final MoneyBook moneyBook
     ) throws InvalidMoneyBookException {
         if (!moneyBook.getUser().getEmail().equals(userEmail)) {
             throw new InvalidMoneyBookException();

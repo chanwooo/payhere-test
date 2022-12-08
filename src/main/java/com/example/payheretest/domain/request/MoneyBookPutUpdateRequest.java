@@ -10,11 +10,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.PositiveOrZero;
 
-<<<<<<<< HEAD:src/main/java/com/example/payheretest/domain/request/MoneyBookPatchUpdateRequest.java
-@Schema(description = "부분 수정 요청, 일부 필드만 요청시 기존값은 그대로두고 변경된 부분만 수정합니다.")
-========
 @Schema(description = "수정 요청, 모든 필드가 유효해야합니다.(Not Null)")
->>>>>>>> main:src/main/java/com/example/payheretest/domain/request/MoneyBookPutUpdateRequest.java
 @Data
 @Setter(AccessLevel.PROTECTED)
 @Builder

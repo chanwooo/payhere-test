@@ -45,7 +45,7 @@ public class MoneyBookService {
             Long moneyBookId,
             MoneyBookUpdateRequest moneyBookUpdateRequest
     ) {
-        MoneyBook moneyBook = moneyBookRepository.findById(moneyBookId)
+        MoneyBook moneyBook = moneyBookRepository.findByIdAndDeletedIsFalse(moneyBookId)
                 .orElseThrow(NoSuchMoneyBookException::new);
         checkMoneyBookEmailValid(userEmail, moneyBook);
 
@@ -59,7 +59,7 @@ public class MoneyBookService {
             Long moneyBookId,
             MoneyBookUpdateRequest moneyBookUpdateRequest
     ) {
-        MoneyBook moneyBook = moneyBookRepository.findById(moneyBookId)
+        MoneyBook moneyBook = moneyBookRepository.findByIdAndDeletedIsFalse(moneyBookId)
                 .orElseThrow(NoSuchMoneyBookException::new);
         checkMoneyBookEmailValid(userEmail, moneyBook);
 
